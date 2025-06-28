@@ -1,6 +1,6 @@
 namespace chess.engine.components;
 
-public abstract class Piece
+internal abstract class Piece
 {
     internal PieceColor Color { get; private set; }
 
@@ -15,9 +15,9 @@ public abstract class Piece
         Black
     }
 
-    internal abstract IEnumerable<(int, int)> GetValidMoves(Board board);
+    internal abstract IEnumerable<Square> GetValidMoves(Board board);
 
-    internal bool PieceIsOnBoard(Board board, out int x, out int y)
+    internal bool PieceIsOnBoard(Board board, out char rank, out int file)
     {
         for (char i = 'a'; i <= 'h'; i++)
         {
@@ -26,14 +26,14 @@ public abstract class Piece
                 var square = board._squares[i - 'a', j - 1];
                 if (square.Piece == this)
                 {
-                    x = i - 'a';
-                    y = j - 1;
+                    rank = square.Rank;
+                    file = square.File;
                     return true;
                 }
             }
         }
-        x = -1;
-        y = -1;
+        rank = char.MinValue;
+        file = int.MinValue;
         return false;
     }
 }

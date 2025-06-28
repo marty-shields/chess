@@ -16,8 +16,8 @@ public class BoardTests
             {
                 var square = squares[x - 'a', y - 1];
                 Assert.IsNotNull(square, $"Square at ({x},{y}) is null");
-                Assert.AreEqual(x, square.positionX, $"positionX mismatch at ({x},{y})");
-                Assert.AreEqual(y, square.positionY, $"positionY mismatch at ({x},{y})");
+                Assert.AreEqual(x, square.Rank, $"positionX mismatch at ({x},{y})");
+                Assert.AreEqual(y, square.File, $"positionY mismatch at ({x},{y})");
             }
         }
     }
@@ -73,27 +73,25 @@ public class BoardTests
     public void IsSquareOccupied_ReturnsFalse_WhenSquareIsEmpty()
     {
         var board = new Board();
-        // Square at (0,0) should be empty initially
-        Assert.IsFalse(board.IsSquareOccupied(0, 0));
+        Assert.IsFalse(board.IsSquareOccupied('a', 1));
     }
 
     [TestMethod]
     public void IsSquareOccupied_ReturnsTrue_WhenSquareIsOccupied()
     {
         var board = new Board();
-        // Place a pawn at (0,1)
         board.GenerateStartingPositionsForPawns();
-        Assert.IsTrue(board.IsSquareOccupied(0, 1)); // White pawn
-        Assert.IsTrue(board.IsSquareOccupied(0, 6)); // Black pawn
+        Assert.IsTrue(board.IsSquareOccupied('a', 2)); // White pawn
+        Assert.IsTrue(board.IsSquareOccupied('a', 7)); // Black pawn
     }
 
     [DataTestMethod]
-    [DataRow(-1, 0)]
-    [DataRow(0, -1)]
-    [DataRow(8, 0)]
-    [DataRow(0, 8)]
-    [DataRow(8, 8)]
-    public void IsSquareOccupied_ThrowsArgumentOutOfRangeException_WhenCoordinatesAreOutOfBounds(int x, int y)
+    [DataRow('a', 0)]
+    [DataRow('a', -1)]
+    [DataRow('h', 0)]
+    [DataRow('a', 9)]
+    [DataRow('h', 9)]
+    public void IsSquareOccupied_ThrowsArgumentOutOfRangeException_WhenCoordinatesAreOutOfBounds(char x, int y)
     {
         var board = new Board();
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => board.IsSquareOccupied(x, y));
@@ -106,7 +104,7 @@ public class BoardTests
         board.GenerateStartingPositionsForPawns();
         // Remove pawn from (0,1)
         board._squares[0, 1].Piece = null;
-        Assert.IsFalse(board.IsSquareOccupied(0, 1));
+        Assert.IsFalse(board.IsSquareOccupied('a', 2));
     }
 
     [TestMethod]
@@ -114,7 +112,7 @@ public class BoardTests
     {
         var board = new Board();
         var piece = new Pawn(Piece.PieceColor.White);
-        Assert.IsFalse(board.CanBeCaptured(0, 0, piece));
+        Assert.IsFalse(board.CanBeCaptured('a', 1, piece));
     }
 
     [TestMethod]
@@ -126,14 +124,14 @@ public class BoardTests
         board._squares[0, 1] = new Square();
         board._squares[0, 1].Piece = whitePiece;
         // White pawn at (0,1)
-        Assert.IsFalse(board.CanBeCaptured(0, 1, piece));
+        Assert.IsFalse(board.CanBeCaptured('a', 2, piece));
 
         var blackPiece = new Pawn(Piece.PieceColor.Black);
         board._squares[0, 6] = new Square();
         board._squares[0, 6].Piece = blackPiece;
         piece = new Pawn(Piece.PieceColor.Black);
         // Black pawn at (0,6)
-        Assert.IsFalse(board.CanBeCaptured(0, 6, piece));
+        Assert.IsFalse(board.CanBeCaptured('a', 7, piece));
     }
 
     [TestMethod]
@@ -146,20 +144,20 @@ public class BoardTests
         board._squares[0, 6].Piece = new Pawn(Piece.PieceColor.Black);
         var piece = new Pawn(Piece.PieceColor.Black);
         // White pawn at (0,1)
-        Assert.IsTrue(board.CanBeCaptured(0, 1, piece));
+        Assert.IsTrue(board.CanBeCaptured('a', 2, piece));
 
         // Black pawn at (0,6)
         piece = new Pawn(Piece.PieceColor.White);
-        Assert.IsTrue(board.CanBeCaptured(0, 6, piece));
+        Assert.IsTrue(board.CanBeCaptured('a', 7, piece));
     }
 
     [DataTestMethod]
-    [DataRow(-1, 0)]
-    [DataRow(0, -1)]
-    [DataRow(8, 0)]
-    [DataRow(0, 8)]
-    [DataRow(8, 8)]
-    public void CanBeCaptured_ThrowsArgumentOutOfRangeException_WhenCoordinatesAreOutOfBounds(int x, int y)
+    [DataRow('a', 0)]
+    [DataRow('a', -1)]
+    [DataRow('h', 0)]
+    [DataRow('a', 9)]
+    [DataRow('h', 9)]
+    public void CanBeCaptured_ThrowsArgumentOutOfRangeException_WhenCoordinatesAreOutOfBounds(char x, int y)
     {
         var board = new Board();
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => board.CanBeCaptured(x, y, new Pawn(Piece.PieceColor.White)));
