@@ -36,4 +36,6 @@ internal abstract class Piece
         file = int.MinValue;
         return false;
     }
+
+    internal bool PieceIsWhite() => this.Color is PieceColor.White;
 }
