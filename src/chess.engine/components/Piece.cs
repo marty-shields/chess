@@ -17,7 +17,7 @@ internal abstract class Piece
 
     internal abstract IEnumerable<Square> GetValidMoves(Board board);
 
-    internal bool PieceIsOnBoard(Board board, out char rank, out int file)
+    protected Square GetSquarePieceIsOn(Board board)
     {
         for (char i = 'a'; i <= 'h'; i++)
         {
@@ -26,15 +26,12 @@ internal abstract class Piece
                 var square = board._squares[i - 'a', j - 1];
                 if (square.Piece == this)
                 {
-                    rank = square.Rank;
-                    file = square.File;
-                    return true;
+                    return square;
                 }
             }
         }
-        rank = char.MinValue;
-        file = int.MinValue;
-        return false;
+
+        throw new InvalidOperationException($"{this.GetType().Name} is not on the board.");
     }
 
     internal bool PieceIsWhite() => this.Color is PieceColor.White;

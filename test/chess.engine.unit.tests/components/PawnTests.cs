@@ -5,6 +5,16 @@ namespace chess.engine.unit.tests.components;
 [TestClass]
 public class PawnTests
 {
+    [TestMethod]
+    public void GetValidMoves_PawnNotOnBoard_ThrowException()
+    {
+        var board = new Board();
+        var piece = new Pawn(Piece.PieceColor.White);
+
+        var ex = Assert.ThrowsException<InvalidOperationException>(() => piece.GetValidMoves(board));
+        Assert.AreEqual("Pawn is not on the board.", ex.Message);
+    }
+
     [DataTestMethod]
     [DataRow('a', 2)]
     [DataRow('b', 2)]

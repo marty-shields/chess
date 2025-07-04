@@ -8,42 +8,36 @@ internal sealed class Pawn : Piece
 
     internal override IEnumerable<Square> GetValidMoves(Board board)
     {
-        if (base.PieceIsOnBoard(board, out char rank, out int file))
-        {
-            List<Square> validMoves = new List<Square>();
-            bool isNotOnEdgeFile = base.PieceIsWhite() ? file < 8 : file > 1;
-            bool isStartPosition = base.PieceIsWhite() ? file is 2 : file is 7;
-            int fileMovement = base.PieceIsWhite() ? 1 : -1;
-            int doubleMovement = base.PieceIsWhite() ? 2 : -2;
+        var square = this.GetSquarePieceIsOn(board);
+        List<Square> validMoves = new List<Square>();
+        bool isNotOnEdgeFile = base.PieceIsWhite() ? square.File < 8 : square.File > 1;
+        bool isStartPosition = base.PieceIsWhite() ? square.File is 2 : square.File is 7;
+        int fileMovement = base.PieceIsWhite() ? 1 : -1;
+        int doubleMovement = base.PieceIsWhite() ? 2 : -2;
 
-            // move forward
-            if (isNotOnEdgeFile && !board.IsSquareOccupied(rank, file + fileMovement))
-            {
-                validMoves.Add(board.GetSquare(rank, file + fileMovement));
-                // double move from starting position
-                if (isStartPosition && !board.IsSquareOccupied(rank, file + doubleMovement))
-                {
-                    validMoves.Add(board.GetSquare(rank, file + doubleMovement));
-                }
-            }
-            // capture left diagnonal
-            char leftRank = (char)(rank - 1);
-            if (rank > 'a' && isNotOnEdgeFile && board.CanBeCaptured(leftRank, file + fileMovement, this))
-            {
-                validMoves.Add(board.GetSquare(leftRank, file + fileMovement));
-            }
-            // capture right diagnonal
-            char rightRank = (char)(rank + 1);
-            if (rank < 'h' && isNotOnEdgeFile && board.CanBeCaptured(rightRank, file + fileMovement, this))
-            {
-                validMoves.Add(board.GetSquare(rightRank, file + fileMovement));
-            }
-
-            return validMoves;
-        }
-        else
+        // move forward
+        if (isNotOnEdgeFile && !board.IsSquareOccupied(square.Rank, square.File + fileMovement))
         {
-            throw new InvalidOperationException("Pawn is not on the board.");
+            validMoves.Add(board.GetSquare(square.Rank, square.File + fileMovement));
+            // double move from starting position
+            if (isStartPosition && !board.IsSquareOccupied(square.Rank, square.File + doubleMovement))
+            {
+                validMoves.Add(board.GetSquare(square.Rank, square.File + doubleMovement));
+            }
         }
+        // capture left diagnonal
+        char leftRank = (char)(square.Rank - 1);
+        if (square.Rank > 'a' && isNotOnEdgeFile && board.CanBeCaptured(leftRank, square.File + fileMovement, this))
+        {
+            validMoves.Add(board.GetSquare(leftRank, square.File + fileMovement));
+        }
+        // capture right diagnonal
+        char rightRank = (char)(square.Rank + 1);
+        if (square.Rank < 'h' && isNotOnEdgeFile && board.CanBeCaptured(rightRank, square.File + fileMovement, this))
+        {
+            validMoves.Add(board.GetSquare(rightRank, square.File + fileMovement));
+        }
+
+        return validMoves;
     }
 }
