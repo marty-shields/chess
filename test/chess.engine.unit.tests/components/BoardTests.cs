@@ -48,13 +48,13 @@ public class BoardTests
             var whitePawn = board._squares[x - 'a', 1].Piece;
             Assert.IsNotNull(whitePawn, $"White pawn should be at {x}2");
             Assert.IsInstanceOfType(whitePawn, typeof(Pawn), $"Square {x}2 should contain a Pawn");
-            Assert.AreEqual(Piece.PieceColour.White, ((Pawn)whitePawn).Color, $"Pawn at {x}2 should be White");
+            Assert.AreEqual(Piece.PieceColour.White, ((Pawn)whitePawn).Colour, $"Pawn at {x}2 should be White");
 
             // Black pawns at rank 7 (index 6)
             var blackPawn = board._squares[x - 'a', 6].Piece;
             Assert.IsNotNull(blackPawn, $"Black pawn should be at {x}7");
             Assert.IsInstanceOfType(blackPawn, typeof(Pawn), $"Square {x}7 should contain a Pawn");
-            Assert.AreEqual(Piece.PieceColour.Black, ((Pawn)blackPawn).Color, $"Pawn at {x}7 should be Black");
+            Assert.AreEqual(Piece.PieceColour.Black, ((Pawn)blackPawn).Colour, $"Pawn at {x}7 should be Black");
         }
 
         //test that other squares do not have any other pieces
@@ -116,7 +116,7 @@ public class BoardTests
     }
 
     [TestMethod]
-    public void CanBeCaptured_ReturnsFalse_WhenPieceIsSameColor()
+    public void CanBeCaptured_ReturnsFalse_WhenPieceIsSamecolour()
     {
         var board = new Board();
         var piece = new Pawn(Piece.PieceColour.White);
@@ -135,7 +135,7 @@ public class BoardTests
     }
 
     [TestMethod]
-    public void CanBeCaptured_ReturnsTrue_WhenPieceIsOppositeColor()
+    public void CanBeCaptured_ReturnsTrue_WhenPieceIsOppositecolour()
     {
         var board = new Board();
         board._squares[0, 1] = new Square();

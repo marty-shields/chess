@@ -2,7 +2,7 @@ namespace chess.engine.components;
 
 internal sealed class Knight : Piece
 {
-    internal Knight(PieceColour color) : base(color)
+    internal Knight(PieceColour colour) : base(colour)
     {
     }
 
@@ -74,7 +74,7 @@ internal sealed class Knight : Piece
     private void AddValidMoveIfNotOccupiedBySameColour(Board board, List<Square> validMoves, char rank, int file)
     {
         var square = board.GetSquare(rank, file);
-        if (square.Piece?.Color != base.Color)
+        if (square.Piece?.Colour != base.Colour)
         {
             validMoves.Add(square);
         }

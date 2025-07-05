@@ -2,11 +2,11 @@ namespace chess.engine.components;
 
 internal abstract class Piece
 {
-    internal PieceColour Color { get; private set; }
+    internal PieceColour Colour { get; private set; }
 
-    internal Piece(PieceColour color)
+    internal Piece(PieceColour colour)
     {
-        Color = color;
+        Colour = colour;
     }
 
     internal enum PieceColour
@@ -34,5 +34,5 @@ internal abstract class Piece
         throw new InvalidOperationException($"{this.GetType().Name} is not on the board.");
     }
 
-    internal bool PieceIsWhite() => this.Color is PieceColour.White;
+    internal bool PieceIsWhite() => this.Colour is PieceColour.White;
 }

@@ -46,7 +46,7 @@ internal sealed class Board
     internal bool CanBeCaptured(char rank, int file, Piece currentPiece)
     {
         var square = this.GetSquare(rank, file);
-        return square.Piece is not null && square.Piece.Color != currentPiece.Color;
+        return square.Piece is not null && square.Piece.Colour != currentPiece.Colour;
     }
 
     internal Square GetSquare(char rank, int file)

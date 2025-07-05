@@ -2,7 +2,7 @@ namespace chess.engine.components;
 
 internal sealed class Pawn : Piece
 {
-    internal Pawn(PieceColour color) : base(color)
+    internal Pawn(PieceColour colour) : base(colour)
     {
     }
 
