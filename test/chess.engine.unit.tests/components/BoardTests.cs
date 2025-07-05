@@ -48,13 +48,13 @@ public class BoardTests
             var whitePawn = board._squares[x - 'a', 1].Piece;
             Assert.IsNotNull(whitePawn, $"White pawn should be at {x}2");
             Assert.IsInstanceOfType(whitePawn, typeof(Pawn), $"Square {x}2 should contain a Pawn");
-            Assert.AreEqual(Piece.PieceColor.White, ((Pawn)whitePawn).Color, $"Pawn at {x}2 should be White");
+            Assert.AreEqual(Piece.PieceColour.White, ((Pawn)whitePawn).Color, $"Pawn at {x}2 should be White");
 
             // Black pawns at rank 7 (index 6)
             var blackPawn = board._squares[x - 'a', 6].Piece;
             Assert.IsNotNull(blackPawn, $"Black pawn should be at {x}7");
             Assert.IsInstanceOfType(blackPawn, typeof(Pawn), $"Square {x}7 should contain a Pawn");
-            Assert.AreEqual(Piece.PieceColor.Black, ((Pawn)blackPawn).Color, $"Pawn at {x}7 should be Black");
+            Assert.AreEqual(Piece.PieceColour.Black, ((Pawn)blackPawn).Color, $"Pawn at {x}7 should be Black");
         }
 
         //test that other squares do not have any other pieces
@@ -111,7 +111,7 @@ public class BoardTests
     public void CanBeCaptured_ReturnsFalse_WhenSquareIsEmpty()
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
         Assert.IsFalse(board.CanBeCaptured('a', 1, piece));
     }
 
@@ -119,17 +119,17 @@ public class BoardTests
     public void CanBeCaptured_ReturnsFalse_WhenPieceIsSameColor()
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var whitePiece = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var whitePiece = new Pawn(Piece.PieceColour.White);
         board._squares[0, 1] = new Square();
         board._squares[0, 1].Piece = whitePiece;
         // White pawn at (0,1)
         Assert.IsFalse(board.CanBeCaptured('a', 2, piece));
 
-        var blackPiece = new Pawn(Piece.PieceColor.Black);
+        var blackPiece = new Pawn(Piece.PieceColour.Black);
         board._squares[0, 6] = new Square();
         board._squares[0, 6].Piece = blackPiece;
-        piece = new Pawn(Piece.PieceColor.Black);
+        piece = new Pawn(Piece.PieceColour.Black);
         // Black pawn at (0,6)
         Assert.IsFalse(board.CanBeCaptured('a', 7, piece));
     }
@@ -139,15 +139,15 @@ public class BoardTests
     {
         var board = new Board();
         board._squares[0, 1] = new Square();
-        board._squares[0, 1].Piece = new Pawn(Piece.PieceColor.White);
+        board._squares[0, 1].Piece = new Pawn(Piece.PieceColour.White);
         board._squares[0, 6] = new Square();
-        board._squares[0, 6].Piece = new Pawn(Piece.PieceColor.Black);
-        var piece = new Pawn(Piece.PieceColor.Black);
+        board._squares[0, 6].Piece = new Pawn(Piece.PieceColour.Black);
+        var piece = new Pawn(Piece.PieceColour.Black);
         // White pawn at (0,1)
         Assert.IsTrue(board.CanBeCaptured('a', 2, piece));
 
         // Black pawn at (0,6)
-        piece = new Pawn(Piece.PieceColor.White);
+        piece = new Pawn(Piece.PieceColour.White);
         Assert.IsTrue(board.CanBeCaptured('a', 7, piece));
     }
 
@@ -160,6 +160,6 @@ public class BoardTests
     public void CanBeCaptured_ThrowsArgumentOutOfRangeException_WhenCoordinatesAreOutOfBounds(char x, int y)
     {
         var board = new Board();
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => board.CanBeCaptured(x, y, new Pawn(Piece.PieceColor.White)));
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => board.CanBeCaptured(x, y, new Pawn(Piece.PieceColour.White)));
     }
 }

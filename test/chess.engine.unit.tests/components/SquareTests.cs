@@ -14,7 +14,7 @@ public class SquareTests
         {
             Rank = x,
             File = y,
-            Piece = new Pawn(Piece.PieceColor.White)
+            Piece = new Pawn(Piece.PieceColour.White)
         };
         Assert.AreEqual(x, square.Rank, $"Failed at x={x}, y={y}");
         Assert.AreEqual(y, square.File, $"Failed at x={x}, y={y}");

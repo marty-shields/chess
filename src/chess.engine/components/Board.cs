@@ -32,8 +32,8 @@ internal sealed class Board
     {
         for (char x = RankStart; x <= RankEnd; x++)
         {
-            _squares[x - RankStart, 1].Piece = new Pawn(Piece.PieceColor.White);
-            _squares[x - RankStart, 6].Piece = new Pawn(Piece.PieceColor.Black);
+            _squares[x - RankStart, 1].Piece = new Pawn(Piece.PieceColour.White);
+            _squares[x - RankStart, 6].Piece = new Pawn(Piece.PieceColour.Black);
         }
     }
 

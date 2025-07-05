@@ -9,7 +9,7 @@ public class PawnTests
     public void GetValidMoves_PawnNotOnBoard_ThrowException()
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
 
         var ex = Assert.ThrowsException<InvalidOperationException>(() => piece.GetValidMoves(board));
         Assert.AreEqual("Pawn is not on the board.", ex.Message);
@@ -27,7 +27,7 @@ public class PawnTests
     public void GetValidMoves_Forward_WhitePawn_CanMoveForwardStartingPosition(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file).Piece = piece;
 
         var possibleMoves = piece.GetValidMoves(board);
@@ -54,7 +54,7 @@ public class PawnTests
     public void GetValidMoves_Forward_BlackPawn_CanMoveForwardStartingPosition(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file).Piece = piece;
 
         var possibleMoves = piece.GetValidMoves(board);
@@ -113,7 +113,7 @@ public class PawnTests
     public void GetValidMoves_Forward_WhitePawn_CanOnlyMoveForward1Position_WhenNotInStartingPosition(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file).Piece = piece;
 
         var possibleMoves = piece.GetValidMoves(board);
@@ -163,7 +163,7 @@ public class PawnTests
     public void GetValidMoves_Forward_BlackPawn_CanOnlyMoveForward1Position_WhenNotInStartingPosition(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file).Piece = piece;
 
         var possibleMoves = piece.GetValidMoves(board);
@@ -189,8 +189,8 @@ public class PawnTests
     public void GetValidMoves_Forward_WhitePawn_CanMoveForwardStartingPosition_Only1WhenOpponentIn2InFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var opponent = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var opponent = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file + 2).Piece = opponent;
 
@@ -204,7 +204,7 @@ public class PawnTests
         };
         CollectionAssert.AreEquivalent(expectedMoves, possibleMoves.ToList());
 
-        opponent = new Pawn(Piece.PieceColor.White);
+        opponent = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file + 2).Piece = opponent;
 
         possibleMoves = piece.GetValidMoves(board);
@@ -225,8 +225,8 @@ public class PawnTests
     public void GetValidMoves_Forward_BlackPawn_CanMoveForwardStartingPosition_Only1WhenOpponentIn2InFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var opponent = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var opponent = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file - 2).Piece = opponent;
 
@@ -240,7 +240,7 @@ public class PawnTests
         };
         CollectionAssert.AreEquivalent(expectedMoves, possibleMoves.ToList());
 
-        opponent = new Pawn(Piece.PieceColor.Black);
+        opponent = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file - 2).Piece = opponent;
 
         possibleMoves = piece.GetValidMoves(board);
@@ -309,15 +309,15 @@ public class PawnTests
     public void GetValidMoves_Forward_WhitePawn_CanNotMoveForwardWhenPieceInFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var opponent = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var opponent = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file + 1).Piece = opponent;
 
         var possibleMoves = piece.GetValidMoves(board);
         Assert.AreEqual(0, possibleMoves.Count(), "There should be no possible forward move");
 
-        opponent = new Pawn(Piece.PieceColor.White);
+        opponent = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file + 1).Piece = opponent;
 
         possibleMoves = piece.GetValidMoves(board);
@@ -376,15 +376,15 @@ public class PawnTests
     public void GetValidMoves_Forward_BlackPawn_CanNotMoveForwardWhenPieceInFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var opponent = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var opponent = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file - 1).Piece = opponent;
 
         var possibleMoves = piece.GetValidMoves(board);
         Assert.AreEqual(0, possibleMoves.Count(), "There should be no possible forward move");
 
-        opponent = new Pawn(Piece.PieceColor.Black);
+        opponent = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file - 1).Piece = opponent;
 
         possibleMoves = piece.GetValidMoves(board);
@@ -403,7 +403,7 @@ public class PawnTests
     public void GetValidMoves_Forward_WhitePawn_NoValidMovesAtTopOfBoard(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file).Piece = piece;
 
         var possibleMoves = piece.GetValidMoves(board);
@@ -423,7 +423,7 @@ public class PawnTests
     public void GetValidMoves_Forward_BlackPawn_NoValidMovesAtBottomOfBoard(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file).Piece = piece;
 
         var possibleMoves = piece.GetValidMoves(board);
@@ -442,8 +442,8 @@ public class PawnTests
     public void GetValidMoves_WhitePawn_NoValidMovesOnLeftEdge_WhenOpponentInFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var opponent = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var opponent = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file + 1).Piece = opponent;
 
@@ -462,8 +462,8 @@ public class PawnTests
     public void GetValidMoves_BlackPawn_NoValidMovesOnLeftEdge_WhenOpponentInFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var opponent = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var opponent = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file - 1).Piece = opponent;
 
@@ -483,8 +483,8 @@ public class PawnTests
     public void GetValidMoves_WhitePawn_NoValidMovesOnRightEdge_WhenOpponentInFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var opponent = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var opponent = new Pawn(Piece.PieceColour.Black);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file + 1).Piece = opponent;
 
@@ -503,8 +503,8 @@ public class PawnTests
     public void GetValidMoves_BlackPawn_NoValidMovesOnRightEdge_WhenOpponentInFront(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var opponent = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var opponent = new Pawn(Piece.PieceColour.White);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(rank, file - 1).Piece = opponent;
 
@@ -566,9 +566,9 @@ public class PawnTests
     public void GetValidMoves_DiagLeft_WhitePawn_CanCaptureOpponent(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var opponent = new Pawn(Piece.PieceColor.Black);
-        var opponent2 = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var opponent = new Pawn(Piece.PieceColour.Black);
+        var opponent2 = new Pawn(Piece.PieceColour.White);
         char captureRank = (char)(rank - 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file + 1).Piece = opponent;
@@ -638,9 +638,9 @@ public class PawnTests
     public void GetValidMoves_DiagRight_WhitePawn_CanCaptureOpponent(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var opponent = new Pawn(Piece.PieceColor.Black);
-        var opponent2 = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var opponent = new Pawn(Piece.PieceColour.Black);
+        var opponent2 = new Pawn(Piece.PieceColour.White);
         char captureRank = (char)(rank + 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file + 1).Piece = opponent;
@@ -703,9 +703,9 @@ public class PawnTests
     public void GetValidMoves_DiagLeft_BlackPawn_CanCaptureOpponent(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var opponent = new Pawn(Piece.PieceColor.White);
-        var opponent2 = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var opponent = new Pawn(Piece.PieceColour.White);
+        var opponent2 = new Pawn(Piece.PieceColour.Black);
         char captureRank = (char)(rank - 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file - 1).Piece = opponent;
@@ -768,9 +768,9 @@ public class PawnTests
     public void GetValidMoves_DiagRight_BlackPawn_CanCaptureOpponent(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var opponent = new Pawn(Piece.PieceColor.White);
-        var opponent2 = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var opponent = new Pawn(Piece.PieceColour.White);
+        var opponent2 = new Pawn(Piece.PieceColour.Black);
         char captureRank = (char)(rank + 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file - 1).Piece = opponent;
@@ -840,9 +840,9 @@ public class PawnTests
     public void GetValidMoves_DiagLeft_WhitePawn_CannotCaptureOwnPiece(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var ownPiece = new Pawn(Piece.PieceColor.White);
-        var opponent2 = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var ownPiece = new Pawn(Piece.PieceColour.White);
+        var opponent2 = new Pawn(Piece.PieceColour.Black);
         char captureRank = (char)(rank - 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file + 1).Piece = ownPiece;
@@ -906,9 +906,9 @@ public class PawnTests
     public void GetValidMoves_DiagRight_WhitePawn_CannotCaptureOwnPiece(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.White);
-        var ownPiece = new Pawn(Piece.PieceColor.White);
-        var opponent2 = new Pawn(Piece.PieceColor.Black);
+        var piece = new Pawn(Piece.PieceColour.White);
+        var ownPiece = new Pawn(Piece.PieceColour.White);
+        var opponent2 = new Pawn(Piece.PieceColour.Black);
         char captureRank = (char)(rank + 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file + 1).Piece = ownPiece;
@@ -965,9 +965,9 @@ public class PawnTests
     public void GetValidMoves_DiagLeft_BlackPawn_CannotCaptureOwnPiece(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var ownPiece = new Pawn(Piece.PieceColor.Black);
-        var opponent2 = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var ownPiece = new Pawn(Piece.PieceColour.Black);
+        var opponent2 = new Pawn(Piece.PieceColour.White);
         char captureRank = (char)(rank - 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file - 1).Piece = ownPiece;
@@ -1023,9 +1023,9 @@ public class PawnTests
     public void GetValidMoves_DiagRight_BlackPawn_CannotCaptureOwnPiece(char rank, int file)
     {
         var board = new Board();
-        var piece = new Pawn(Piece.PieceColor.Black);
-        var ownPiece = new Pawn(Piece.PieceColor.Black);
-        var opponent2 = new Pawn(Piece.PieceColor.White);
+        var piece = new Pawn(Piece.PieceColour.Black);
+        var ownPiece = new Pawn(Piece.PieceColour.Black);
+        var opponent2 = new Pawn(Piece.PieceColour.White);
         char captureRank = (char)(rank + 1);
         board.GetSquare(rank, file).Piece = piece;
         board.GetSquare(captureRank, file - 1).Piece = ownPiece;
