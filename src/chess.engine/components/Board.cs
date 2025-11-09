@@ -9,8 +9,7 @@ internal sealed class Board
     private const char RankEnd = 'h';
     private const int FileStart = 1;
     private const int FileEnd = 8;
-
-    internal readonly Square[,] _squares;
+    private readonly Square[,] _squares;
 
     internal Board()
     {

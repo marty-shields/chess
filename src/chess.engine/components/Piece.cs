@@ -23,7 +23,7 @@ internal abstract class Piece
         {
             for (int j = 1; j <= 8; j++)
             {
-                var square = board._squares[i - 'a', j - 1];
+                var square = board.GetSquare(i, j);
                 if (square.Piece == this)
                 {
                     return square;
