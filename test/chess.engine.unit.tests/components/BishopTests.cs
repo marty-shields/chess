@@ -156,4 +156,61 @@ public class BishopTests
                 $"Actual: {string.Join(", ", possibleMoves.Select(sq => $"{sq.Rank}{sq.File}"))}");
         }
     }
+
+    [DataTestMethod]
+    [DataRow('a', 1, "b2", new string[] { })]
+    [DataRow('a', 1, "c3", new[] { "b2" })]
+    [DataRow('a', 1, "d4", new[] { "b2", "c3" })]
+    [DataRow('a', 1, "e5", new[] { "b2", "c3", "d4" })]
+    [DataRow('a', 1, "f6", new[] { "b2", "c3", "d4", "e5" })]
+    [DataRow('a', 1, "g7", new[] { "b2", "c3", "d4", "e5", "f6" })]
+    [DataRow('a', 1, "h8", new[] { "b2", "c3", "d4", "e5", "f6", "g7" })]
+    [DataRow('h', 1, "g2", new string[] { })]
+    [DataRow('h', 1, "f3", new[] { "g2" })]
+    [DataRow('h', 1, "e4", new[] { "g2", "f3" })]
+    [DataRow('h', 1, "d5", new[] { "g2", "f3", "e4" })]
+    [DataRow('h', 1, "c6", new[] { "g2", "f3", "e4", "d5" })]
+    [DataRow('h', 1, "b7", new[] { "g2", "f3", "e4", "d5", "c6" })]
+    [DataRow('h', 1, "a8", new[] { "g2", "f3", "e4", "d5", "c6", "b7" })]
+    [DataRow('a', 8, "b7", new string[] { })]
+    [DataRow('a', 8, "c6", new[] { "b7" })]
+    [DataRow('a', 8, "d5", new[] { "b7", "c6" })]
+    [DataRow('a', 8, "e4", new[] { "b7", "c6", "d5" })]
+    [DataRow('a', 8, "f3", new[] { "b7", "c6", "d5", "e4" })]
+    [DataRow('a', 8, "g2", new[] { "b7", "c6", "d5", "e4", "f3" })]
+    [DataRow('a', 8, "h1", new[] { "b7", "c6", "d5", "e4", "f3", "g2" })]
+    [DataRow('h', 8, "g7", new string[] { })]
+    [DataRow('h', 8, "f6", new[] { "g7" })]
+    [DataRow('h', 8, "e5", new[] { "g7", "f6" })]
+    [DataRow('h', 8, "d4", new[] { "g7", "f6", "e5" })]
+    [DataRow('h', 8, "c3", new[] { "g7", "f6", "e5", "d4" })]
+    [DataRow('h', 8, "b2", new[] { "g7", "f6", "e5", "d4", "c3" })]
+    [DataRow('h', 8, "a1", new[] { "g7", "f6", "e5", "d4", "c3", "b2" })]
+    [DataRow('d', 4, "e5", new[] { "c3", "b2", "a1", "e3", "f2", "g1", "c5", "b6", "a7" })]
+    [DataRow('d', 4, "c5", new[] { "e5", "f6", "g7", "h8", "c3", "b2", "a1", "e3", "f2", "g1" })]
+    [DataRow('d', 4, "c3", new[] { "e5", "f6", "g7", "h8", "e3", "f2", "g1", "c5", "b6", "a7" })]
+    [DataRow('d', 4, "e3", new[] { "e5", "f6", "g7", "h8", "c3", "b2", "a1", "c5", "b6", "a7" })]
+
+    public void GetValidMoves_Bishop_PieceSameColourInPath_AllPossiblePositions(char rank, int file, string blockedPiece, string[] expectedSquares)
+    {
+        var board = new Board();
+        foreach (Piece.PieceColour colour in Enum.GetValues(typeof(Piece.PieceColour)))
+        {
+            var piece = new Bishop(colour);
+            board.GetSquare(rank, file).Piece = piece;
+
+            var targetSquare = board.GetSquare((char)blockedPiece[0], int.Parse(blockedPiece[1].ToString()));
+            targetSquare.Piece = new Pawn(colour);
+
+            var possibleMoves = piece.GetValidMoves(board);
+
+            var expectedMoves = expectedSquares.Select(sq =>
+            {
+                return board.GetSquare((char)sq[0], int.Parse(sq[1].ToString()));
+            });
+
+            CollectionAssert.AreEquivalent(expectedMoves.ToList(), possibleMoves.ToList(), "The valid moves for the bishop are not as expected. " +
+                $"Actual: {string.Join(", ", possibleMoves.Select(sq => $"{sq.Rank}{sq.File}"))}");
+        }
+    }
 }
