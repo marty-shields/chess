@@ -27,6 +27,22 @@ internal sealed class Board
         }
     }
 
+    internal void GenerateStartingPositionsForBishops()
+    {
+        _squares['c' - RankStart, 0].Piece = new Bishop(Piece.PieceColour.White);
+        _squares['f' - RankStart, 0].Piece = new Bishop(Piece.PieceColour.White);
+        _squares['c' - RankStart, 7].Piece = new Bishop(Piece.PieceColour.Black);
+        _squares['f' - RankStart, 7].Piece = new Bishop(Piece.PieceColour.Black);
+    }
+
+    internal void GenerateStartingPositionsForKnights()
+    {
+        _squares['b' - RankStart, 0].Piece = new Knight(Piece.PieceColour.White);
+        _squares['g' - RankStart, 0].Piece = new Knight(Piece.PieceColour.White);
+        _squares['b' - RankStart, 7].Piece = new Knight(Piece.PieceColour.Black);
+        _squares['g' - RankStart, 7].Piece = new Knight(Piece.PieceColour.Black);
+    }
+
     internal void GenerateStartingPositionsForPawns()
     {
         for (char x = RankStart; x <= RankEnd; x++)

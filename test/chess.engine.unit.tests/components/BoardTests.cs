@@ -54,6 +54,60 @@ public class BoardTests
     }
 
     [TestMethod]
+    public void Board_GenerateStartingPositionsForBishops_SetsCorrectSquares()
+    {
+        var board = new Board();
+        board.GenerateStartingPositionsForBishops();
+
+        var bishop = board.GetSquare('c', 1).Piece;
+        Assert.IsNotNull(bishop, "White bishop should be at c1");
+        Assert.IsInstanceOfType(bishop, typeof(Bishop), "Square c1 should contain a Bishop");
+        Assert.AreEqual(Piece.PieceColour.White, ((Bishop)bishop).Colour, "Bishop at c1 should be White");
+
+        bishop = board.GetSquare('f', 1).Piece;
+        Assert.IsNotNull(bishop, "White bishop should be at f1");
+        Assert.IsInstanceOfType(bishop, typeof(Bishop), "Square f1 should contain a Bishop");
+        Assert.AreEqual(Piece.PieceColour.White, ((Bishop)bishop).Colour, "Bishop at f1 should be White");
+
+        bishop = board.GetSquare('c', 8).Piece;
+        Assert.IsNotNull(bishop, "Black bishop should be at c8");
+        Assert.IsInstanceOfType(bishop, typeof(Bishop), "Square c8 should contain a Bishop");
+        Assert.AreEqual(Piece.PieceColour.Black, ((Bishop)bishop).Colour, "Bishop at c8 should be Black");
+
+        bishop = board.GetSquare('f', 8).Piece;
+        Assert.IsNotNull(bishop, "Black bishop should be at f8");
+        Assert.IsInstanceOfType(bishop, typeof(Bishop), "Square f8 should contain a Bishop");
+        Assert.AreEqual(Piece.PieceColour.Black, ((Bishop)bishop).Colour, "Bishop at f8 should be Black");
+    }
+
+    [TestMethod]
+    public void Board_GenerateStartingPositionsForKnights_SetsCorrectSquares()
+    {
+        var board = new Board();
+        board.GenerateStartingPositionsForKnights();
+
+        var knight = board.GetSquare('b', 1).Piece;
+        Assert.IsNotNull(knight, "White knight should be at b1");
+        Assert.IsInstanceOfType(knight, typeof(Knight), "Square b1 should contain a Knight");
+        Assert.AreEqual(Piece.PieceColour.White, ((Knight)knight).Colour, "Knight at b1 should be White");
+
+        knight = board.GetSquare('g', 1).Piece;
+        Assert.IsNotNull(knight, "White knight should be at g1");
+        Assert.IsInstanceOfType(knight, typeof(Knight), "Square g1 should contain a Knight");
+        Assert.AreEqual(Piece.PieceColour.White, ((Knight)knight).Colour, "Knight at g1 should be White");
+
+        knight = board.GetSquare('b', 8).Piece;
+        Assert.IsNotNull(knight, "Black knight should be at b8");
+        Assert.IsInstanceOfType(knight, typeof(Knight), "Square b8 should contain a Knight");
+        Assert.AreEqual(Piece.PieceColour.Black, ((Knight)knight).Colour, "Knight at b8 should be Black");
+
+        knight = board.GetSquare('g', 8).Piece;
+        Assert.IsNotNull(knight, "Black knight should be at g8");
+        Assert.IsInstanceOfType(knight, typeof(Knight), "Square g8 should contain a Knight");
+        Assert.AreEqual(Piece.PieceColour.Black, ((Knight)knight).Colour, "Knight at g8 should be Black");
+    }
+
+    [TestMethod]
     public void IsSquareOccupied_ReturnsFalse_WhenSquareIsEmpty()
     {
         var board = new Board();
